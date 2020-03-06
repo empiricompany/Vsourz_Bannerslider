@@ -37,7 +37,14 @@ $catData = $catCollection->getData();
                     	<a href="<?php echo $data['slide_url']; ?>" title="<?php echo $data['slide_title']; ?>">
                       <?php } ?>
 					<div class="img-box-inner">
-						<img src="<?php echo Mage::getBaseUrl('media').$data['slide_img']; ?>" alt="<?php echo $data['slide_title']; ?>"/>
+						<?php if($data['slide_img_mobile']) : ?>
+						<img srcset="<?php echo Mage::getBaseUrl('media').$data['slide_img_mobile']; ?> 991w, <?php echo Mage::getBaseUrl('media').$data['slide_img']; ?> 1200w" 
+							src="<?php echo Mage::getBaseUrl('media').$data['slide_img']; ?>"
+						 	alt="<?php echo $data['slide_title']; ?>"/>
+						 <?php else : ?>
+						 	<img src="<?php echo Mage::getBaseUrl('media').$data['slide_img']; ?>"
+						 	alt="<?php echo $data['slide_title']; ?>"/>
+						 <?php endif; ?>
 						<div class="slide-desc-box t-<?php echo $data['text_align']; ?>">
 							<div class="slide-content" style="color:#<?php echo $data['text_color']; ?>">
 								<?php if($title==0): ?>

@@ -32,6 +32,13 @@ class Vsourz_Bannerslider_Block_Adminhtml_Image_Grid extends Mage_Adminhtml_Bloc
 			'index' => 'slide_img',
 			'renderer' => 'bannerslider/adminhtml_bannerslider_renderer_image',
 		));
+		$this->addColumn('slide_img_mobile', array(
+			'header' => Mage::helper('bannerslider')->__('Image Mobile'),
+			'align' => 'left',
+			'width' => '200px',
+			'index' => 'slide_img_mobile',
+			'renderer' => 'bannerslider/adminhtml_bannerslider_renderer_image',
+		));
 		$this->addColumn('slide_description', array(
 			'header' => Mage::helper('bannerslider')->__('Slide Description'),
 			'align' => 'left',

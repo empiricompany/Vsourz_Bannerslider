@@ -36,6 +36,13 @@ class Vsourz_Bannerslider_Block_Adminhtml_Image_Edit_Tabs_Form extends Mage_Admi
 		  'name' => 'slide_img',
 		  'note' => '(*.jpg, *.jpeg, *.png, *.gif)',
         ));
+
+        $fieldset->addField('slide_img_mobile', 'image', array(
+          'label' => Mage::helper('bannerslider')->__('Slide Image Mobile'),
+		  'required' => true,
+		  'name' => 'slide_img_mobile',
+		  'note' => '(*.jpg, *.jpeg, *.png, *.gif)',
+        ));
 		
 		$fieldset->addField('slider_id', 'select', array(
           'label' => Mage::helper('bannerslider')->__('Slider Category'),

@@ -61,6 +61,41 @@ class Vsourz_Bannerslider_Adminhtml_ImageController extends Mage_Adminhtml_Contr
 				}
 			}
 			$model->setData($data);
+
+			//Code to Save Gallery Image
+			if(isset($_FILES['slide_img_mobile']['name']) and (file_exists($_FILES['slide_img_mobile']['tmp_name']))){
+				try{
+					$uploader = new Varien_File_Uploader('slide_img_mobile');
+					$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
+					$uploader->setAllowRenameFiles(false);
+					// setAllowRenameFiles(true) -> move your file in a folder the magento way
+					$uploader->setFilesDispersion(false);
+					$path = Mage::getBaseDir('media').'/bannerslider/';
+					$imgName = explode('.',$_FILES['slide_img_mobile']['name']);
+					$imgName[0] = $imgName[0].'-'.'gallery-img'.'-'.date('Y-m-d H-i-s');
+					$imgName = implode('.',$imgName);
+					$imgName = preg_replace('/\s+/', '-', $imgName);
+					$uploader->save($path, $imgName);
+					$data['slide_img_mobile'] = 'bannerslider/'.$imgName;
+				}catch(Exception $e){
+					
+				}
+			}
+			else{       
+				if(isset($data['slide_img_mobile']) && $data['slide_img_mobile']['delete'] == 1){
+					// delete image file
+					 $image = explode(',',$data['slide_img_mobile']);
+					 $img = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA).'/'.$image[1];
+					 if(file_exists($img)){
+					  unlink($img);
+					 }
+					// set db blank entry
+					$data['slide_img_mobile'] = ''; 
+				}else{
+					unset($data['slide_img_mobile']);
+				}
+			}
+			$model->setData($data);
 			Mage::getSingleton('adminhtml/session')->setFormData($data);
 			try{
 				if ($id){
